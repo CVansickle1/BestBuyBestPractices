@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace BestBuyBestPractices
 {
-    internal class Departement
+    public class Departement
     {
+        public int DepartmentID { get; set; }
+
+        public string Name { get; set; }
     }
 }

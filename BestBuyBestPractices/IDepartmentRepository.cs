@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BestBuyBestPractices
 {
-    internal interface IDepartmentRepository
+    public interface IDepartmentRepository
     {
         public IEnumerable<Departement> GetAllDepartments();
 
