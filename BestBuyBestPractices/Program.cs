@@ -11,7 +11,7 @@ var config = new ConfigurationBuilder()
 string connString = config.GetConnectionString("DefaultConnection");
 
 IDbConnection conn = new MySqlConnection(connString);
-#region Departent Section
+
 var departmentRepo = new DapperDepartmentRepository(conn);
 
 
@@ -26,9 +26,9 @@ foreach (var department in departments)
     Console.WriteLine();
 
 }
-#endregion
 
-#region Product Section
+
+  
 var productRepository = new DapperProductRepository(conn);
 
 var products = productRepository.GetAllProducts();
@@ -39,21 +39,35 @@ foreach (var product in products)
     Console.WriteLine(product.Name);
     Console.WriteLine($"${product.Price}");
     Console.WriteLine(product.CategoryID);
-    if (product.OnSale == true)
-    {
-        Console.WriteLine("On Sale");
-    }
-    else
-    {
-        Console.WriteLine("Not On Sale");
-    }
-
+    Console.WriteLine(product.OnSale ? "On Sale" : "Not On Sale");
     Console.WriteLine($"Quantity On Hand: {product.StockLevel}");
     Console.WriteLine();
     Console.WriteLine();
 
 }
 
+string? Name;
+double Price;
+int CategoryID;
 
+var foundExeption = false;
 
-#endregion
+do
+{
+    try
+    {
+        Console.WriteLine("Please Enter the Name, Price and CategoryID that you would like to Insert");
+        Name = Console.ReadLine();
+        Price = double.Parse(Console.ReadLine());
+        CategoryID = int.Parse(Console.ReadLine());
+        productRepository.CreateProduct(Name, Price, CategoryID);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+        foundExeption = true;
+
+    }
+}
+while (foundExeption);
+

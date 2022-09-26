@@ -20,15 +20,9 @@ namespace BestBuyBestPractices
             return _conn.Query<Product>("SELECT * FROM Products;");
         }
 
-        void IProductRepository.CreateProduct(string name, double price, int categoryID)
+        public void CreateProduct(string name, double price, int categoryID)
         {
-            _conn.Execute("INSERT INTO products (Name," +
-                                                "Price," +
-                                                "CateagoryID)" +
-                                                "VALUES" +
-                                                "(@name," +
-                                                "@price," +
-                                                "@categoryID);",
+            _conn.Execute("INSERT INTO products (Name,Price,CategoryID) VALUES (@name,@price,@categoryID);",
                                                 new { name, price, categoryID });
 
 
@@ -58,12 +52,7 @@ namespace BestBuyBestPractices
                           stock = product.StockLevel
                       });
         }
-        public void DeleteProduct(int id)
-        {
-
-        }
-
-        
+       
     }
 
 }
